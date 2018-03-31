@@ -8,6 +8,7 @@ resource "aws_instance" "site" {
   ami = "${lookup(var.aws_amis, var.w_aws_region)}"
 
   subnet_id              = "${aws_subnet.sub.id}"
+  vpc_security_group_ids = ["${aws_security_group.instances.id}"]
 }
 
 resource "aws_elb" "site" {
@@ -22,5 +23,6 @@ resource "aws_elb" "site" {
 
   instances = ["${aws_instance.site.id}"]
 
-  subnets = ["${aws_subnet.sub.id}"]
+  subnets         = ["${aws_subnet.sub.id}"]
+  security_groups = ["${aws_security_group.elb.id}"]
 }
