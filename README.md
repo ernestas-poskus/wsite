@@ -1,3 +1,5 @@
+# Amazon AWS ELB & AWS Instance configuration using Terraform
+
 ## Setup
 
 > Setup aws credentials in ~/.aws/credentials
