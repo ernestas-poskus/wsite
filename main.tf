@@ -9,6 +9,18 @@ resource "aws_instance" "site" {
 
   subnet_id              = "${aws_subnet.sub.id}"
   vpc_security_group_ids = ["${aws_security_group.instances.id}"]
+
+  provisioner "file" {
+    source      = "provisioning/nginx.sh"
+    destination = "/tmp/setup_nginx.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/setup_nginx.sh",
+      "/tmp/setup_nginx.sh ${aws_instance.site.id}",
+    ]
+  }
 }
 
 resource "aws_elb" "site" {
