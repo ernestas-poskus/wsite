@@ -6,6 +6,8 @@ resource "aws_instance" "site" {
   instance_type = "t2.micro"
 
   ami = "${lookup(var.aws_amis, var.w_aws_region)}"
+
+  subnet_id              = "${aws_subnet.sub.id}"
 }
 
 resource "aws_elb" "site" {
@@ -19,4 +21,6 @@ resource "aws_elb" "site" {
   }
 
   instances = ["${aws_instance.site.id}"]
+
+  subnets = ["${aws_subnet.sub.id}"]
 }
