@@ -1,7 +1,15 @@
-# Setup
+## Setup
 
-> Generate SSH key
+> Setup aws credentials in ~/.aws/credentials
 
-```bash
-ssh-keygen -t rsa -P '' -f ssh/key
+```
+[default]
+aws_access_key_id = ID
+aws_secret_access_key = SECRET
+```
+
+## Test
+
+```
+curl -v "http://$(terraform output elb_hostname)"
 ```
